@@ -45,11 +45,11 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <MyDataTable
-              :class="{ 'my-5': $vuetify.breakpoint.smAndUp }"
-              :datasets="variables"
-              :searchTerm="search"
-              :itemsPerPage="5"
+          <MyDataTable v-if="!loading"
+                       :class="{ 'my-5': $vuetify.breakpoint.smAndUp }"
+                       :datasets="datasetList"
+                       :searchTerm="search"
+                       :itemsPerPage="5"
           />
         </v-container>
       </v-sheet>
@@ -62,13 +62,23 @@
 import ColoredBorderAlert from "../components/DynamicHelpResources/ColoredBorderAlert.vue";
 import MyDataTable from "../components/MyData/MyDataTable.vue";
 import SupportBanner from "../components/SupportBanner.vue";
+import {mapState} from 'vuex';
+
 export default {
   name: "MyData",
   components: {MyDataTable, ColoredBorderAlert, SupportBanner},
-
+  created() {
+    this.$store.dispatch('dataset/setDatasetList')
+        .then(() => this.loading = false)
+  },
+  computed: {
+    ...mapState('dataset', ['datasetList'])
+  },
   data: () => ({
     search: "",
+    loading: true,
     // TODO: This data should be loaded from the backend
+    /*
     variables: [
       {
         dataset: "California Demographic Dataset",
@@ -118,7 +128,7 @@ export default {
         remainingTime: "-",
         datasetId: "exampleError"
       }
-    ]
+    ] */
   })
 };
 </script>

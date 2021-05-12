@@ -15,7 +15,7 @@
               <strong>use the desktop version of the app.</strong>
             </template>
           </ColoredBorderAlert>
-          <CreateDPStatistics v-if="!loading" v-bind:fileInfo="uploadedFile"/>
+          <CreateDPStatistics v-if="!loading && uploadedFile" v-bind:fileInfo="uploadedFile"/>
           <h2
               class="title-size-2 font-weight-bold mt-16"
               :class="{
