@@ -7,5 +7,12 @@ export default {
      */
     getUserDatasets() {
         return session.get('/api/dataset-info/')
+    },
+    /**
+     * Gets the dataset for this objectId
+     * @returns {Promise<AxiosResponse<any>>}
+     */
+    getDataset(objectId) {
+        return session.get('/api/dataset-info/' + objectId)
     }
 }
