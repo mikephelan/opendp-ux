@@ -29,13 +29,8 @@
       <template v-slot:[`item.status`]="{ item }">
         <StatusTag :status="item.status"/>
       </template>
-      <template v-slot:[`item.remainingTime`]="{ item }">
-        <span
-            :class="{
-            'error_status__color--text': item.remainingTime === 'Expired'
-          }"
-        >{{ item.remainingTime }}</span
-        >
+      <template v-slot:[`item.created`]="{ item }">
+        <TimeRemaining :created-time="item.created"/>
       </template>
       <template v-slot:[`item.options`]="{ item }">
         <Button
@@ -174,6 +169,7 @@ import actionsInformation from "../../data/actionsInformation";
 import StatusTag from "../DesignSystem/StatusTag.vue";
 import Button from "../DesignSystem/Button.vue";
 import NETWORK_CONSTANTS from "../../router/NETWORK_CONSTANTS";
+import TimeRemaining from "@/components/MyData/TimeRemaining";
 
 const {
   VIEW_DETAILS,
@@ -183,7 +179,10 @@ const {
 
 export default {
   name: "MyDataTable",
-  components: {StatusTag, Button},
+  created() {
+    console.log("creating mydatatable")
+  },
+  components: {TimeRemaining, StatusTag, Button},
   props: {
     datasets: {
       type: Array
@@ -214,7 +213,7 @@ export default {
         {value: "num"},
         {text: "Dataset", value: "name"},
         {text: "Status", value: "status"},
-        //  {text: "Remaining time to complete release", value: "remainingTime"},
+        {text: "Remaining time to complete release", value: "created"},
         {text: "Options", value: "options", align: "end"}
       ],
       statusInformation,
