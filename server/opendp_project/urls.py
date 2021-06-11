@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.views.generic import TemplateView, RedirectView
 from rest_framework import routers, serializers
@@ -69,4 +70,6 @@ urlpatterns = [
                   url(r'^rest-auth/google/$', GoogleLogin.as_view(), name='google-login'),
                   # Putting all vue-related views under "ui/" for now to separate from the api.
                   url(r'^.*$', TemplateView.as_view(template_name="index.html"), name='vue-home'),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, kwargs={'show_indexes': True})
+              ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, kwargs={'show_indexes': True})
+
+urlpatterns += staticfiles_urlpatterns()
